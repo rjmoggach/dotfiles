@@ -4,8 +4,11 @@ set nocompatible
 
 " Use the Solarized Dark theme
 set background=dark
-colorscheme solarized
-let g:solarized_termtrans=1
+colorscheme molokai
+
+"let g:solarized_termtrans=1
+
+let g:session_autosave='no'     "get rid of the autosave message
 
 " ================ General Config ====================
 
@@ -85,8 +88,7 @@ nnoremap P P=`]<C-o>
 filetype plugin on
 filetype indent on
 
-" Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+"set list listchars=tab:\ \ ,trail:·     " Display tabs and trailing spaces visually
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -137,7 +139,8 @@ set exrc
 set secure
 
 " Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+" set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set lcs=tab:▸\ ,trail:·,nbsp:_
 set list
 
 " Strip trailing whitespace (,ss)

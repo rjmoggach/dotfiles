@@ -1,7 +1,11 @@
-# Add `~/bin` to the `$PATH`
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH="$HOME/bin:$PATH";
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+#!/usr/bin/env bash
+
+export PATH="/usr/local/bin":"/usr/local/sbin":"${PATH}"
+export PATH="${HOME}/bin":"${PATH}"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin":"${PATH}"
+
+# Path to the bash init configuration
+export BASH_INIT="$HOME/.bash"
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -29,3 +33,20 @@ for option in autocd globstar; do
     shopt -s "$option" 2> /dev/null;
 done;
 
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+# Change this to your console based IRC client of choice.
+export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
+
+# Set this to false to turn off version control status checking within the prompt for all themes
+export SCM_CHECK=true
+
+
+
+
+# Load bash init
+source $BASH_INIT/init.bash

@@ -1,0 +1,18 @@
+# Devel
+reference/*
+
+# Mac OS X
+.DS_Store
+._*
+Desktop.ini
+
+# Python
+*.pyc
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes

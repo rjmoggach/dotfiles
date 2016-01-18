@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+#
+# Copyright (C) 2011-2012 Ryan Galloway (ryan@rsgalloway.com)
+#
+# This module is part of Shotman and is released under
+# the BSD License: http://www.opensource.org/licenses/bsd-license.php
+
+import os
+import sys
+import optparse
+import logging
+import pyseq
+
+def main():
+    """
+    Command-line interface.
+    """
+
+    usage = """
+lss [path] [-f format] [-d]
+
+Formatting options:
+
+    You can format the output of lss using the --format option and passing
+    in a format string.
+
+    Default format string is "%s"
+
+    Supported directives:
+        %%s   sequence start
+        %%e   sequence end
+        %%l   sequence length
+        %%f   list of found files
+        %%m   list of missing files
+        %%p   padding, e.g. %%06d
+        %%r   absolute range, start-end
+        %%R   expanded range, start-end [missing]
+        %%h   string preceding sequence number
+        %%t   string after the sequence number
+
+    Format directives support padding, for example: "%%04l".
+    """ % pyseq.global_format
+
+    parser = optparse.OptionParser(usage=usage, version="%prog " + pyseq.__version__)
+    parser.add_option("-f", "--format", dest="format", default=pyseq.global_format,
+                      help="format the output string")
+    parser.add_option("-d", "--debug", dest="debug", action="store_true", default=False,
+                      help="set logging level to debug (or $PYSEQ_LOG_LEVEL)")
+    (options, args) = parser.parse_args()
+
+    if options.debug:
+        pyseq.log.setLevel(logging.DEBUG)
+
+    if len(args) == 0:
+        args = os.listdir(os.getcwd())
+    elif len(args) == 1 and os.path.isdir(args[0]):
+        args = os.listdir(args[0])
+    for seq in pyseq.get_sequences(args):
+        print seq.format(options.format)
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main())

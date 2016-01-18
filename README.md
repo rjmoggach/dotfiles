@@ -18,6 +18,9 @@ Here's the repos I leeched from. Forking was not really an option in these cases
 * [yadr - yet another dotfile repo](https://github.com/skwp/dotfiles)
 * [Bash It - community bash framework](https://github.com/Bash-it/bash-it)
 
+
+Another option that doesn't involve github for keeping everything in sync is [Mackup](https://github.com/lra/mackup) which stores everything on the cloud drive of your choice. I use a combo of both because it keeps alot of app settings in sync nicely.
+
 ## Installation
 
 This is customized to my liking so please read the init script before you run it. It does alot.

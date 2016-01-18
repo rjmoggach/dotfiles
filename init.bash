@@ -42,7 +42,7 @@ LINKFILES=( \
     '.bash_login' '.bash_profile' '.bash_prompt' '.bashrc' \
     '.curlrc' '.dir_colors' '.dircolors' '.editorconfig' '.exports'\
     '.gitconfig' '.gitignore_global' '.gvimrc' '.htoprc' '.hushlogin'\
-    '.inputrc' '.screenrc' '.viminfo' '.vimrc' '.wgetrc')
+    '.mackup.cfg' '.inputrc' '.screenrc' '.viminfo' '.vimrc' '.wgetrc')
 SYNCDIRS=( \
     'bin/' '.bash/'
 )

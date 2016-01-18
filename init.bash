@@ -44,7 +44,7 @@ LINKFILES=( \
     '.gitconfig' '.gitignore_global' '.gvimrc' '.htoprc' '.hushlogin'\
     '.mackup.cfg' '.inputrc' '.screenrc' '.viminfo' '.vimrc' '.wgetrc')
 SYNCDIRS=( \
-    'bin/' '.bash/'
+    'bin/' '.bash/' '.vim'
 )
 COPYFILES=(\
     '.pypirc'
@@ -144,6 +144,11 @@ function deploy_vim() {
         else
             mkdir ~/.vim
         fi
+        rsync --exclude ".git/" --exclude ".DS_Store" \
+            --exclude "init/" --exclude ".gitignore" \
+            --exclude "reference" --exclude "backup" \
+            -avh --no-perms \
+            ${DOTFILES}/.vim/ ${HOME}/.vim/
         if [ ! -d ~/.vim/bundle/vundle ]; then
             git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/vundle
             echo -ne "When you run vim use the following command string:\n\n\

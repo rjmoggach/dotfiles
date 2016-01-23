@@ -6,13 +6,30 @@
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
+# while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Check for Homebrew
+if test ! $(which brew)
+then
+  echo "  Installing Homebrew for you."
+  # Install the correct homebrew for each OS type
+  if test "$(uname)" = "Darwin"
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+  fi
+fi
+
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Make sure we’re using the latest Homebrew.
 brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade
+brew upgrade --all
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -80,7 +97,9 @@ brew install xz
 # Install other useful binaries.
 brew install ack
 #brew install exiv2
+brew install dark-mode
 brew install git
+brew install git-lfs
 brew install imagemagick --with-webp
 brew install lua
 brew install lynx
@@ -90,6 +109,7 @@ brew install pv
 brew install rename
 brew install rhino
 brew install speedtest_cli
+brew install ssh-copy-id
 brew install tree
 brew install webkit2png
 brew install zopfli

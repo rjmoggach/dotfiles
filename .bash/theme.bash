@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 THEME_PROMPT_HOST='\H'
 
 SCM_CHECK=${SCM_CHECK:=true}
@@ -43,8 +44,8 @@ SCM_NONE_CHAR='○'
 RVM_THEME_PROMPT_PREFIX=' |'
 RVM_THEME_PROMPT_SUFFIX='|'
 
-VIRTUALENV_THEME_PROMPT_PREFIX=' |'
-VIRTUALENV_THEME_PROMPT_SUFFIX='|'
+VIRTUALENV_THEME_PROMPT_PREFIX=' ['
+VIRTUALENV_THEME_PROMPT_SUFFIX=']'
 
 RBENV_THEME_PROMPT_PREFIX=' |'
 RBENV_THEME_PROMPT_SUFFIX='|'
@@ -298,7 +299,7 @@ function py_interp_prompt {
 }
 
 function python_version_prompt {
-  echo -e "$(virtualenv_prompt)$(condaenv_prompt)$(py_interp_prompt)"
+  echo -e "$(condaenv_prompt)$(py_interp_prompt)"
 }
 
 

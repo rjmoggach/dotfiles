@@ -43,8 +43,10 @@ LINKFILES=( \
     '.curlrc' '.dir_colors' '.dircolors' '.editorconfig' '.exports'\
     '.gitconfig' '.gitignore_global' '.gvimrc' '.htoprc' '.hushlogin'\
     '.mackup.cfg' '.inputrc' '.screenrc' '.viminfo' '.vimrc' '.wgetrc')
+LINKDIRS=( \
+    '.bash')
 SYNCDIRS=( \
-    'bin/' '.bash/' '.vim'
+    'bin/' '.vim'
 )
 COPYFILES=(\
     '.pypirc'
@@ -82,6 +84,8 @@ function deploy_dotfiles() {
     if [ ! -d $1 ] && [ ! -n $1 ]; then
         mkdir $1
     fi
+
+    # LINKFILES
     echo -ne "\nLinking"
     for linkfile in "${LINKFILES[@]}"; do
         pushd $HOME
@@ -99,6 +103,27 @@ function deploy_dotfiles() {
         popd
         sleep 0.1
     done
+
+    # LINKDIRS
+    echo -ne "\nLinking"
+    for linkdir in "${LINKDIRS[@]}"; do
+        pushd $HOME
+        if [ -L ${linkdir} ]; then
+            rm ${linkdir}
+            echo -ne " ${linkdir}"
+            ln -s ${DOTFILES}/${linkdir} ${linkdir}
+        elif [ -d '~/${linkdir}' ]; then
+            mv ${linkdir} ${BACKUPDIR}/
+            ln -s ${DOTFILES}/${linkdir} ${linkdir}
+        else
+            rm -rf ${linkdir}
+            ln -s ${DOTFILES}/${linkdir} ${linkdir}
+        fi
+        popd
+        sleep 0.1
+    done
+
+    # SYNCDIRS
     echo -ne "\n\nSyncing"
     for syncdir in "${SYNCDIRS[@]}"; do
         pushd $HOME
@@ -117,6 +142,7 @@ function deploy_dotfiles() {
             ${DOTFILES}/${syncdir}/ ${syncdir}/
         popd
     done
+
     echo -ne "\n\nCopying"
     for file in "${COPYFILES[@]}"; do
         pushd $HOME
